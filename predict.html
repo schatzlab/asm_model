@@ -1,0 +1,50 @@
+<html>
+<head><title>Genome Assembly Performance Prediction</title></head>
+<body>
+
+<table> <tr> <td width=10%>&nbsp;</td> 
+<td>
+
+<h1>Genome Assembly Performance Prediction</h1>
+<hr>
+
+<p> This is the Genome Assembly Performance Prediction Service. If you have any queries please email Hayan Lee(<a href="mailto:hlee@cshl.edui">hlee@cshl.edu</a>).</p> 
+
+<p> Although assembly performance is a function of genome size, read length, coverage and repeats, in this prediction model, we only used 3 features; genome size, read length and coverage for the simplicity. </p>
+
+<p> Given genome size, we internally set read lengths and coverages for you. With 3 features, our model predicts the expected performance of assembly. Performance is defined as follows:</p>
+
+<p> Performance(%) = N50 of assembly / N50 of chromosome segments </p>
+ 
+<form> 
+Genome size : <input id="genome" type="text" value="1664000" name="genomesize" />
+</form>
+
+<input type="button" value="Submit" onclick='var gs=document.getElementById("genome").value; document.getElementById("genome").value=gs; document.getElementById("graph").src="graph.cgi?"+gs; ' />
+
+<p align=center>
+<img src="graph.cgi?1664000" id="graph" />
+</p>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Start of SimpleHitCounter Code -->
+<div align="center">
+Thanks for visiting our website!
+<br>
+<a href="http://www.simplehitcounter.com" target="_blank"><img src="http://simplehitcounter.com/hit.php?uid=1726533&f=0&b=16776960" border="0" height="18" width="83" alt="hit counter website"></a><br>
+</div>
+<!-- End of SimpleHitCounter Code -->
+
+
+</td>
+<td width=10%>&nbsp;</td>
+</tr>
+</table>
+ </body>
+</html>

@@ -1,0 +1,6 @@
+
+Installation directions
+
+1. Install libsvm to /var/libsvm using the tarball in the install directory
+2. Install gnuplot
+3. Edit graph.sh with the paths to svm-predict and gnuplot
