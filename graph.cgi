@@ -19,7 +19,6 @@ rm ./dat/test.idx
 
 for l in 3700 7500 15000 30000 60000 120000 240000 480000; do 
   for c in 5 10 20 40; do 
-    #echo $g $l $c |  awk '{printf "0 1:%f 2:%f\n", 3:log($1)/log($2), log($3)}' >> ./dat/test.dat
     echo $g $l $c |  awk '{printf "0 1:%f 2:%f\n", (log($1)/log($2))/2.6924, log($3)/3.6889}' >> ./dat/test.dat
     echo $l $c >> ./dat/test.idx
   done;
@@ -78,9 +77,9 @@ set grid xtics lt 1 lw 2 lc rgb "#ffffff"
 ### first graph
 
 set xrange[0:45]
-set title "By Coverage " font ",20" 
-#set xlabel "Coverage" font ", 12"
-#set label "By Coverage" at screen 0.5, 0.9 font ",200"
+set title "Assembly Performance by Coverage " font ",20" 
+set xlabel "Coverage" font ", 12"
+set ylabel "Performance" font ", 12"
 
 set object 2 rect from 33.9,2 to 44.4,19.5 behind fc rgb "white" fs solid border lw 0 
 
@@ -95,8 +94,8 @@ set size 1, 0.45
 set origin 0.01, 0
 
 set xrange[0:31000]
-#set title "By Read Length" font ", 20"
-#set xlabel "Read Length" font ", 12"
+set title "Assembly Performance By Read Length" font ", 20"
+set xlabel "Read Length" font ", 12"
 
 set object 3 rect from 25230,2 to 30600,19.5 behind fc rgb "white" fs solid border lw 0 
 
