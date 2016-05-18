@@ -19,11 +19,11 @@ Preprint of the paper available here:
 http://www.biorxiv.org/content/early/2016/04/13/048603
 
 Online version available here:
-http://qb.cshl.edu/asm_mode/
+http://qb.cshl.edu/asm_model/
 
 
 Installation directions
 
 1. Install libsvm to /var/libsvm using the tarball in the install directory
 2. Install gnuplot
-3. Edit graph.sh with the paths to svm-predict and gnuplot
+3. Edit graph.cgi with the paths to svm-predict and gnuplot
