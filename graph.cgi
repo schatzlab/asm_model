@@ -14,23 +14,23 @@ fi
 # Generate data given genome length, and predict
 ###############################################################################
 
-rm ./dat/test.dat
-rm ./dat/test.idx
+rm ./dat/user.dat
+rm ./dat/user.idx
 
 for l in 3700 7500 15000 30000 60000 120000 240000 480000; do 
   for c in 5 10 20 40; do 
-    echo $g $l $c |  awk '{printf "0 1:%f 2:%f\n", (log($1)/log($2))/2.6924, log($3)/3.6889}' >> ./dat/test.dat
-    echo $l $c >> ./dat/test.idx
+    echo $g $l $c |  awk '{printf "0 1:%f 2:%f\n", (log($1)/log($2))/2.6924, log($3)/3.6889}' >> ./dat/user.dat
+    echo $l $c >> ./dat/user.idx
   done;
 done;
 
-/var/libsvm-3.21/svm-predict -q ./dat/test.dat ./model/model.all.f2.rbf.mdl ./dat/test.prd
+/var/libsvm-3.21/svm-predict -q ./dat/user.dat ./model/model.all.f2.rbf.mdl ./dat/user.prd
 
 
 # Create plot data file and render with gnuplot
 ###############################################################################
 
-paste ./dat/test.idx ./dat/test.prd | sed 's/\t/ /g' | awk '{if($3<0) print $1, $2, 0; else if($3>100) print $1, $2, 100 ; else printf "%d %d %.2f\n", $1, $2, $3}' > ./dat/test.plt
+paste ./dat/user.idx ./dat/user.prd | sed 's/\t/ /g' | awk '{if($3<0) print $1, $2, 0; else if($3>100) print $1, $2, 100 ; else printf "%d %d %.2f\n", $1, $2, $3}' > ./dat/user.plt
 
 echo 'Content-Type: image/png'
 echo 
@@ -83,10 +83,10 @@ set ylabel "Performance" font ", 12"
 
 set object 2 rect from 33.9,2 to 44.4,19.5 behind fc rgb "white" fs solid border lw 0 
 
-plot 'dat/test.plt' every ::12::15 using 2:3 with linespoints ls 5 ti " mean 30,000", \
-     'dat/test.plt' every ::8::11 using 2:3 with linespoints ls 4 ti " mean 15,000", \
-     'dat/test.plt' every ::4::7 using 2:3 with linespoints ls 2 ti " mean 7,500", \
-     'dat/test.plt' every ::0::3 using 2:3 with linespoints ls 1 ti " mean 3,700"
+plot 'dat/user.plt' every ::12::15 using 2:3 with linespoints ls 5 ti " mean 30,000", \
+     'dat/user.plt' every ::8::11 using 2:3 with linespoints ls 4 ti " mean 15,000", \
+     'dat/user.plt' every ::4::7 using 2:3 with linespoints ls 2 ti " mean 7,500", \
+     'dat/user.plt' every ::0::3 using 2:3 with linespoints ls 1 ti " mean 3,700"
 
 ### second graph
 
@@ -99,10 +99,10 @@ set xlabel "Read Length" font ", 12"
 
 set object 3 rect from 25230,2 to 30600,19.5 behind fc rgb "white" fs solid border lw 0 
 
-plot 'dat/test.plt' every 4::3 using 1:3 with linespoints ls 6 ti " cov 40", \
-     'dat/test.plt' every 4::2 using 1:3 with linespoints ls 7 ti " cov 20", \
-     'dat/test.plt' every 4::1 using 1:3 with linespoints ls 8 ti " cov 10", \
-     'dat/test.plt' every 4::0 using 1:3 with linespoints ls 9 ti " cov 5"
+plot 'dat/user.plt' every 4::3 using 1:3 with linespoints ls 6 ti " cov 40", \
+     'dat/user.plt' every 4::2 using 1:3 with linespoints ls 7 ti " cov 20", \
+     'dat/user.plt' every 4::1 using 1:3 with linespoints ls 8 ti " cov 10", \
+     'dat/user.plt' every 4::0 using 1:3 with linespoints ls 9 ti " cov 5"
 
 EOF
 
