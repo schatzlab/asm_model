@@ -7,12 +7,21 @@ g=1234567
 
 if [ $# -gt 0 ]
 then
-  g=$1
+  # scrub out any non digits
+  g=`echo $1 | sed 's/[^0-9]//g'`
+fi
+
+## Confirm we have a string
+if [ -z $g ]
+then
+  g=123456
 fi
 
 
 # Generate data given genome length, and predict
 ###############################################################################
+
+echo "$g" > ./dat/genome.size
 
 rm ./dat/user.dat
 rm ./dat/user.idx
@@ -24,7 +33,7 @@ for l in 3700 7500 15000 30000 60000 120000 240000 480000; do
   done;
 done;
 
-/var/libsvm-3.21/svm-predict -q ./dat/user.dat ./model/model.all.f2.rbf.mdl ./dat/user.prd
+./svm-predict -q ./dat/user.dat ./model/model.all.f2.rbf.mdl ./dat/user.prd >& ./dat/svm.log
 
 
 # Create plot data file and render with gnuplot
